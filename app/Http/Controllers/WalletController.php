@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Wallet;
 use App\Models\Transaction;
+use App\Models\WalletType;
 use Illuminate\Http\Request;
 
 class WalletController extends Controller
@@ -30,8 +31,13 @@ class WalletController extends Controller
         ]);
         $userId = $request->user_id;
         $sender = Wallet::where('id', $request->sender_wallet_id)->first();
+        $swt = WalletType::where('id', $request->sender_wallet_id)->first();
         $receiver = Wallet::where('id', $request->receiver_wallet_id)->first();
+        $rwt = WalletType::where('id', $request->receiver_wallet_id)->first();
         $amount = $request->amount;
+        $rw = $receiver->id;
+        $sw = $sender->id;
+        $trx = random_int(111111, 999999);
 
         // Check if the sender is the owner of the sender wallet
         if ($sender->user_id !== $userId) {
@@ -57,13 +63,27 @@ class WalletController extends Controller
         // Save both wallet balances
         $sender->save();
         $receiver->save();
-
+        // return response()->json([$sender->id => 'Transfer successful',$receiver->id => "ok"]);
         // Record the transaction
         Transaction::create([
-            'sender_wallet_id' => $sender->id,
-            'receiver_wallet_id' => $receiver->id,
+            "user_id" => $sender->user_id,
+            'wallet_id' => $sw,
+            "transaction_id" => $trx,
+            'type' => "debit",
             'amount' => $amount,
-            'transaction_date' => now(),
+            "description" => "Transfer from " . ucfirst($swt->name) . " wallet to " . ucfirst($rwt->name) . " wallet.",
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        Transaction::create([
+            "user_id" => $receiver->user_id,
+            'wallet_id' => $rw,
+            "transaction_id" => $trx,
+            'type' => "credit",
+            'amount' => $amount,
+            "description" => "Transfer from " . ucfirst($swt->name) . " wallet to " . ucfirst($rwt->name) . " wallet.",
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         return response()->json(['message' => 'Transfer successful']);

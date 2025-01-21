@@ -10,6 +10,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->Integer('user_id');
             $table->unsignedBigInteger('wallet_id');
             $table->enum('type', ['credit', 'debit']);
             $table->decimal('amount', 15, 2);

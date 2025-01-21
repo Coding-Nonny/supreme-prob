@@ -10,10 +10,12 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sender_wallet_id',
-        'receiver_wallet_id',
+        'user_id',
+        'wallet_id',
+        'transaction_id',
+        'type',
         'amount',
-        'transaction_date'
+        'description',
     ];
 
     public function senderWallet()
