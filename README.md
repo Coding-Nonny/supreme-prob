@@ -128,26 +128,6 @@ This project provides a robust API for managing wallets, wallet types, and trans
     ```json
     {
       "message": "Transfer successful",
-      "transaction": { ... }
-    }
-    ```
-
-#### 4. Deposit Money
-
--   **URL**: `/api/wallets/deposit`
--   **Method**: `POST`
--   **Body Parameters**:
-    ```json
-    {
-        "wallet_id": 1,
-        "amount": 200.0
-    }
-    ```
--   **Response**:
-    ```json
-    {
-        "message": "Deposit successful",
-        "balance": 700.0
     }
     ```
 
