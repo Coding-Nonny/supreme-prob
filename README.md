@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project provides a robust API for managing wallets, wallet types, and transactions for a financial platform. Users can create wallets, transfer money between wallets, and deposit funds. The project is built using Laravel and follows standard API development practices.
+This project provides a robust API for managing wallets, wallet types, and transactions for a financial platform. Users can create wallets and transfer money between wallets. The project is built using Laravel and follows standard API development practices.
 
 ---
 
