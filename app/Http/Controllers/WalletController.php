@@ -11,7 +11,7 @@ class WalletController extends Controller
 {
     public function getAllWallets()
     {
-        $wallets = Wallet::with('users', 'wallettype')->get();
+        $wallets = Wallet::all();
         return response()->json($wallets);
     }
 
